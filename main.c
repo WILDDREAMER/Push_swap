@@ -14,16 +14,24 @@ void push(t_stack *head, int val)
 	new->val = val;
 }
 
-int pop(t_stack *head, int val){
+int pop(t_stack **head, int val){
 	t_stack *curr;
 
-	curr = head;
-	if (head->val == val)
-	//cannot head's value
+	curr = *head;
+	if ((*head)->next == *head)
+	//cannot delete head
 		return (0);
-
-	//loop over the it until we find our value
-    while(curr->val != val && curr->next != head)
+    
+    //if the target is the head we need to keep the head but change it's value
+    if ((*head)->val == val)
+    {
+        (*head)->prev->next = (*head)->next;
+        (*head)->next->prev = (*head)->prev;
+        *head = (*head)->next;
+        return val;
+    }
+	//loop over the stack until we find our value
+    while(curr->val != val && curr->next != *head)
         curr = curr->next;
 
 	if (curr->val == val){
@@ -34,21 +42,24 @@ int pop(t_stack *head, int val){
 	return (0);
 }
 
-int main(void)
+int main(int argc, char **argv)
 {
     t_stack *head;
     t_stack	*curr;
+    int i;
 
     head = malloc(sizeof(t_stack));
-    head->val = 0;
+    head->val = atoi(argv[1]);
     head->prev = head;
     head->next = head;
-    push(head, 1);
-    push(head, 2);
-    push(head, 3);
-    push(head, 4);
-	pop(head, 2);
+
+    i = 1;
+    while (++i < argc)
+        push(head,atoi(argv[i]));
+
+	pop(&head, 3);
     curr = head;
+
     while(curr->next != head){
         printf("%d ~ ", curr->val);
         curr = curr->next;

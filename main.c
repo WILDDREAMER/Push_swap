@@ -42,25 +42,45 @@ int pop(t_stack **head, int val){
 	return (0);
 }
 
+void swap(t_stack *head){
+    int tmp;
+    t_stack *top;
+
+    if (head->next != head)
+    {
+        top = head->prev;
+        tmp = top->val;
+        top->val = top->prev->val;
+        top->prev->val = tmp;
+    }
+}
+
+void ss(t_stack *head_a, t_stack *head_b){
+    swap(head_a);
+    swap(head_b);
+}
+
 int main(int argc, char **argv)
 {
-    t_stack *head;
+    t_stack *head_a;
+    t_stack *head_b;
     t_stack	*curr;
     int i;
 
-    head = malloc(sizeof(t_stack));
-    head->val = atoi(argv[1]);
-    head->prev = head;
-    head->next = head;
+    head_a = malloc(sizeof(t_stack));
+    head_b = malloc(sizeof(t_stack));
+    head_a->val = atoi(argv[1]);
+    head_a->prev = head_a;
+    head_a->next = head_a;
 
     i = 1;
     while (++i < argc)
-        push(head,atoi(argv[i]));
+        push(head_a,atoi(argv[i]));
 
-	pop(&head, 3);
-    curr = head;
+	swap(head_a);
+    curr = head_a;
 
-    while(curr->next != head){
+    while(curr->next != head_a){
         printf("%d ~ ", curr->val);
         curr = curr->next;
     }

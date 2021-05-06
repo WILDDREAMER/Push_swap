@@ -5,6 +5,7 @@ void push(t_stack *head, int val)
     t_stack *new;
     t_stack *top;
 
+    //if there's no item in the stack
     if (head->next == NULL)
     {
         head->val = val;
@@ -30,9 +31,11 @@ int pop(t_stack **head, int val)
 
     curr = *head;
     if ((*head)->next == *head)
+    {
         (*head)->next = NULL;
         (*head)->prev = NULL;
         return (0);
+    }
 
     //if the target is the head we need to keep the head but change it's value
     if ((*head)->val == val)
@@ -60,7 +63,8 @@ void swap(t_stack *head)
     int tmp;
     t_stack *top;
 
-    if (head->next != head)
+    //if there is more than one element
+    if (head->next != head && head->next != NULL)
     {
         top = head->prev;
         tmp = top->val;
@@ -76,7 +80,7 @@ void push_top( t_stack *to, t_stack *from)
     if (from->next != NULL)
     {
         top = from->prev->val;
-        push(from, top);
+        push(to, top);
         pop(&from, top);
     }
 }
@@ -120,40 +124,42 @@ int stack_size(t_stack *head){
     return size;
 }
 
+int rotate(t_stack **head){
+    if ((*head)->next != NULL)
+        *head = (*head)->prev;
+    return 0;
+}
+
+void rr(t_stack **head_a, t_stack **head_b){
+    rotate(head_a);
+    rotate(head_b);
+}
+
 void visualize(t_stack *a, t_stack *b){
-
-    // t_stack *curr_a;
-    // t_stack *curr_b;
-    // char val_a;
-    // char val_b;
-
-    // int size_a = stack_size(a);
-    // int size_b = stack_size(b);
-    // int size = (size_a > size_b) ? size_a : size_b;
-
-    // curr_a = a;
-    // curr_b = b;
-
-    // for (int i = 0; i < size; i++)
-    // {
-    //     if (curr_a)
-    // }
-    
 
     t_stack *curr_a;
     t_stack *curr_b;
-    int val_a;
-    int val_b;
+
+    int size_a = stack_size(a);
+    int size_b = stack_size(b);
+    int size = (size_a > size_b) ? size_a : size_b;
 
     curr_a = a;
-    while (curr_a->next != a && curr_a->next != NULL)
+    curr_b = b;
+
+    printf(" ----- STACK_A -----   ||   ----- STACK_B -----\n");
+    for (int i = 0; i < size; i++)
     {
-        printf("||  %d  ||\n", curr_a->val);
-        curr_a = curr_a->next;
+        printf("||        %-10s|| ~ ||        %-10s||\n", (size_a > i) ? ft_itoa(curr_a->val) : " ", (size_b > i) ? ft_itoa(curr_b->val) : " ");
+        if (curr_a -> next != NULL)
+            curr_a = curr_a->next;
+        if (curr_b -> next != NULL)
+            curr_b = curr_b->next;
     }
-    if (curr_a->next != NULL)
-        printf("||  %d  ||\n----------------------\n", curr_a->val);    
+    printf("-----------------------------------------------\n");
+    
 }
+
 int main(int argc, char **argv)
 {
     t_stack *head_a;
@@ -171,7 +177,8 @@ int main(int argc, char **argv)
         return 0;
     while (++i < argc)
         push(head_a, atoi(argv[i]));
-    printf("%d", stack_size(head_b));
+
     visualize(head_a, head_b);
-    push_top(head_a, head_b);
+
+    visualize(head_a, head_b);
 }

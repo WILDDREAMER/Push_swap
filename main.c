@@ -73,7 +73,7 @@ void swap(t_stack *head)
     }
 }
 
-void push_top( t_stack *to, t_stack *from)
+void push_top(t_stack *to, t_stack *from)
 {
     int top;
 
@@ -108,12 +108,13 @@ void initialize(t_stack *a, t_stack *b)
     b->prev = NULL;
 }
 
-int stack_size(t_stack *head){
+int stack_size(t_stack *head)
+{
     t_stack *curr;
 
     int size = 0;
     curr = head;
-    while(curr->next != head && curr->next != NULL)
+    while (curr->next != head && curr->next != NULL)
     {
         size++;
         curr = curr->next;
@@ -124,18 +125,34 @@ int stack_size(t_stack *head){
     return size;
 }
 
-int rotate(t_stack **head){
+int rotate(t_stack **head)
+{
     if ((*head)->next != NULL)
         *head = (*head)->prev;
     return 0;
 }
 
-void rr(t_stack **head_a, t_stack **head_b){
+int reverse_rotate(t_stack **head)
+{
+    if ((*head)->next != NULL)
+        *head = (*head)->next;
+    return 0;
+}
+
+void rrr(t_stack **a, t_stack **b)
+{
+    reverse_rotate(a);
+    reverse_rotate(b);
+}
+
+void rr(t_stack **head_a, t_stack **head_b)
+{
     rotate(head_a);
     rotate(head_b);
 }
 
-void visualize(t_stack *a, t_stack *b){
+void visualize(t_stack *a, t_stack *b)
+{
 
     t_stack *curr_a;
     t_stack *curr_b;
@@ -151,34 +168,55 @@ void visualize(t_stack *a, t_stack *b){
     for (int i = 0; i < size; i++)
     {
         printf("||        %-10s|| ~ ||        %-10s||\n", (size_a > i) ? ft_itoa(curr_a->val) : " ", (size_b > i) ? ft_itoa(curr_b->val) : " ");
-        if (curr_a -> next != NULL)
+        if (curr_a->next != NULL)
             curr_a = curr_a->next;
-        if (curr_b -> next != NULL)
+        if (curr_b->next != NULL)
             curr_b = curr_b->next;
     }
     printf("-----------------------------------------------\n");
-    
+}
+
+int args_length(char **args)
+{
+    int i;
+
+    i = 0;
+    while(*args != NULL)
+    {
+        i++;
+        args++;
+    }
+    return (i);
 }
 
 int main(int argc, char **argv)
 {
     t_stack *head_a;
     t_stack *head_b;
-
+    char **args;
+    int number_of_args;
     int i;
-
-    head_a = malloc(sizeof(t_stack));
-    head_b = malloc(sizeof(t_stack));
-    initialize(head_a, head_b);
-
-    i = 0;
 
     if (argc < 2)
         return 0;
-    while (++i < argc)
-        push(head_a, atoi(argv[i]));
-
-    visualize(head_a, head_b);
+    number_of_args = 0;
+    head_a = malloc(sizeof(t_stack));
+    head_b = malloc(sizeof(t_stack));
+    initialize(head_a, head_b);
+    args = NULL;
+    if (argc == 2)
+    {
+        args = ft_split(argv[1], ' ');
+        number_of_args = args_length(args);
+    }
+    else
+    {
+        number_of_args = argc - 1;
+        args = argv + 1;
+    }
+    i = -1;
+    while (++i < number_of_args)
+        push(head_a, atoi(args[i]));
 
     visualize(head_a, head_b);
 }

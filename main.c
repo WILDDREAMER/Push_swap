@@ -50,6 +50,23 @@ int pop(t_stack **head)
 	return (0);
 }
 
+int pop_last(t_stack **head)
+{
+	t_stack **new_last;
+
+	if (*head == NULL)
+		return (0);
+	// if ((*head)->prev == *head)
+	// {
+	// 	pop(head);
+	// 	return (0);
+	// }
+	// *new_last = (*head)->prev->prev;
+	// (*head)->prev = *new_last;
+	// (*new_last)->next = (*head);
+	return (0);
+}
+
 void swap(t_stack *head)
 {
 	int tmp;
@@ -105,6 +122,8 @@ int stack_size(t_stack *head)
 	int size = 0;
 	if (head == NULL)
 		return 0;
+	else if (head->next == head)
+		return (1);
 	curr = head;
 	while (curr->next && curr->next != head)
 	{
@@ -127,8 +146,13 @@ int rotate(t_stack **head)
 
 int reverse_rotate(t_stack **head)
 {
-	if (*head != NULL)
-		*head = (*head)->next;
+	int last;
+
+	if (*head == NULL)
+		return (0);
+	last = (*head)->prev->val;
+	pop_last(head);
+	push(head, last);
 	return 0;
 }
 
@@ -208,7 +232,6 @@ int main(int argc, char **argv)
 	i = -1;
 	while (++i < number_of_args)
 		push(&head_a, atoi(args[i]));
-	rotate(&head_b);
 	visualize(head_a, head_b);
 	return (1);
 }

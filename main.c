@@ -26,14 +26,15 @@ int push(t_stack **head, int val)
 	new->val = val;
 	if (*head == NULL)
 	{
-		new->next = *head;
 		*head = new;
+		new->next = *head;
 		new->prev = *head;
 		return (1);
 	}
 	new->prev = (*head)->prev;
 	new->next = *head;
 	(*head)->prev = new;
+	new->prev->next = new;
 	*head = new;
 	return (0);
 }
@@ -46,6 +47,7 @@ int pop(t_stack **head)
 		return (0);
 	last = (*head)->prev;
 	*head = (*head)->next;
+	(*head)->next->prev = (*head)->prev;
 	last->next = *head;
 	return (0);
 }
@@ -56,14 +58,14 @@ int pop_last(t_stack **head)
 
 	if (*head == NULL)
 		return (0);
-	// if ((*head)->prev == *head)
-	// {
-	// 	pop(head);
-	// 	return (0);
-	// }
-	// *new_last = (*head)->prev->prev;
-	// (*head)->prev = *new_last;
-	// (*new_last)->next = (*head);
+	if ((*head)->prev == *head)
+	{
+		pop(head);
+		return (0);
+	}
+	*new_last = (*head)->prev->prev;
+	(*head)->prev = *new_last;
+	(*new_last)->next = (*head);
 	return (0);
 }
 
@@ -84,7 +86,7 @@ void push_top(t_stack **to, t_stack **from)
 {
 	int top;
 
-	if (from != NULL)
+	if (*from != NULL)
 	{
 		top = (*from)->val;
 		push(to, top);
@@ -232,6 +234,9 @@ int main(int argc, char **argv)
 	i = -1;
 	while (++i < number_of_args)
 		push(&head_a, atoi(args[i]));
+	pb(&head_a, &head_b);
+	pb(&head_a, &head_b);
+	// pb(&head_a, &head_b);
 	visualize(head_a, head_b);
 	return (1);
 }

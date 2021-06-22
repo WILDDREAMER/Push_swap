@@ -28,7 +28,7 @@ int	handle_input(t_stack **a, t_stack **b, char *line)
 	{
 		write(1, RED, ft_strlen(RED));
 		write(1, "SYNTAX ERROR !\n", 15);
-		return (0);
+		exit(EXIT_FAILURE);
 	}
 	return (1);
 }
@@ -80,8 +80,7 @@ int	main(int argc, char **argv)
 	i = number_of_args;
 	if (number_of_args == 0)
 		return (0);
-	if (!check_duplicated_elements(args, number_of_args))
-		return (0);
+	check_duplicated_elements(args, number_of_args);
 	while (--i >= 0)
 	{
 		j = -1;
@@ -91,15 +90,12 @@ int	main(int argc, char **argv)
 			{
 				write(1, RED, ft_strlen(RED));
 				write(1, "SYNTAX ERROR !\n", 15);
-				return (0);
+				exit(EXIT_FAILURE);
 			}
 		push(&head_a, atoi(args[i]));
 	}
 	while (get_next_line(0, &line) > 0)
-	{	
-		if (!handle_input(&head_a, &head_b, line))
-			return (0);
-	}
+		handle_input(&head_a, &head_b, line);
 	printf("%s",checker(head_a));
 	return (1);
 }

@@ -16,7 +16,7 @@ int	check_duplicated_elements(char **args, int number_of_args)
 				write(1, "DUPLICATED ELEMENT: \"", 21);
 				write(1, args[i], ft_strlen(args[i]));
 				write(1, "\"!\n", 3);
-				return 0;
+				exit(EXIT_FAILURE);
 			}
 	}
 	return (1);

@@ -73,3 +73,53 @@ int pop_last(t_stack **head)
 	(*new_last)->next = (*head);
 	return (0);
 }
+
+int get_index_of_max(t_stack *head)
+{
+	t_stack	*curr_node;
+	int	i;
+	int	index_of_max;
+	int	val_of_max;
+
+	i = 0;
+	index_of_max = 0;
+	curr_node = head;
+	val_of_max = head->val;
+	curr_node = curr_node->next;
+	while (curr_node != head)
+	{
+		++i;
+		if (curr_node->val > val_of_max)
+		{
+			val_of_max = curr_node->val;
+			index_of_max = i;
+		}
+		curr_node = curr_node->next;
+	}
+	return (index_of_max);
+}
+
+int get_index_of_min(t_stack *head)
+{
+	t_stack	*curr_node;
+	int	i;
+	int	index_of_min;
+	int	val_of_min;
+
+	i = 0;
+	index_of_min = 0;
+	curr_node = head;
+	val_of_min = head->val;
+	curr_node = curr_node->next;
+	while (curr_node != head)
+	{
+		++i;
+		if (curr_node->val < val_of_min)
+		{
+			val_of_min = curr_node->val;
+			index_of_min = i;
+		}
+		curr_node = curr_node->next;
+	}
+	return (index_of_min);
+}

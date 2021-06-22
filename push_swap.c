@@ -29,26 +29,48 @@ int handle_input(t_stack **a, t_stack **b, char *line)
 		write(1, RED, ft_strlen(RED));
 		write(1, "SYNTAX ERROR\n", 13);
 		write(1, WHT, ft_strlen(WHT));
-		return (0);
+		exit(EXIT_FAILURE);
 	}
 	return (1);
 }
 
-char *checker(t_stack *a)
+void	sort_three(t_stack	*head)
 {
-	t_stack *curr_node;
-	int		curr_val;
+	int min;
+	int max;
 
-	curr_val = a->val;
-	curr_node = a->next;
-	while(curr_node != a)
+	min = get_index_of_min(head);
+	max = get_index_of_max(head);
+	if ((min == 0) && (max == 2))
+		exit(EXIT_SUCCESS);
+	else if ((min == 2) && (max == 0))
 	{
-		if (curr_val > curr_node->val)
-			return ("\e[1;31mKO\n");
-		curr_val = curr_node->val;
-		curr_node = curr_node->next;
+		write(1, "ra\n", 3);
+		write(1, "sa\n", 3);
+		exit(EXIT_SUCCESS);
 	}
-	return ("\e[1;32mOK\n");
+	else if ((min == 2) && (max == 1))
+	{
+		write(1, "rra\n", 4);
+		exit(EXIT_SUCCESS);
+	}
+	else if ((min == 1) && (max == 0))
+	{
+		write(1, "ra\n", 3);
+		exit(EXIT_SUCCESS);
+	}
+	else if ((min == 0) && (max == 1))
+	{
+		write(1, "rra\n", 4);
+		write(1, "sa\n", 3);
+		exit(EXIT_SUCCESS);
+	}
+	else if ((min == 1) && (max == 2))
+	{
+		write(1, "sa\n", 3);
+		exit(EXIT_SUCCESS);
+	}
+	
 }
 
 int main(int argc, char **argv)
@@ -76,14 +98,11 @@ int main(int argc, char **argv)
 		number_of_args = argc - 1;
 		args = argv + 1;
 	}
-	i = number_of_args;	
+	i = number_of_args;
+	check_duplicated_elements(args, number_of_args);
 	while (--i >= 0)
 		push(&head_a, atoi(args[i]));
-	while (get_next_line(0, &line) > 0)
-	{	
-		if (!handle_input(&head_a, &head_b, line))
-			return (0);
-	}
-	visualize(head_a, head_b);
+
+	sort_three(head_a);
 	return (1);
 }

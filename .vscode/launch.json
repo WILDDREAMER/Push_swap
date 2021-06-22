@@ -10,7 +10,7 @@
             "type": "cppdbg",
             "request": "launch",
             "program": "/Users/ozakkare/Desktop/Push_swap/push_swap",
-            "args": ["6 5 4 3 2 1"],
+            "args": ["1 3 2"],
             "stopAtEntry": false,
             "cwd": "${workspaceFolder}",
             "environment": [],

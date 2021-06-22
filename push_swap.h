@@ -20,8 +20,8 @@
 typedef struct	s_stack
 {
 	int val;
-    struct s_stack *prev;
-    struct s_stack *next;
+	struct s_stack *prev;
+	struct s_stack *next;
 }				t_stack;
 
 int stack_size(t_stack *head);
@@ -41,6 +41,10 @@ void rr(t_stack **head_a, t_stack **head_b);
 void visualize(t_stack *a, t_stack *b);
 int args_length(char **args);
 void visualize(t_stack *a, t_stack *b);
+char *checker(t_stack *a);
 int	check_duplicated_elements(char **args, int number_of_args);
+int	handle_input(t_stack **a, t_stack **b, char *line);
+int get_index_of_max(t_stack *head);
+int get_index_of_min(t_stack *head);
 
 #endif

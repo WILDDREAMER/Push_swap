@@ -40,5 +40,7 @@ void rrr(t_stack **a, t_stack **b);
 void rr(t_stack **head_a, t_stack **head_b);
 void visualize(t_stack *a, t_stack *b);
 int args_length(char **args);
+void visualize(t_stack *a, t_stack *b);
+int	check_duplicated_elements(char **args, int number_of_args);
 
 #endif

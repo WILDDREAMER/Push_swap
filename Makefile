@@ -2,19 +2,19 @@ CH_NAME = checker
 PS_NAME = push_swap
 
 
-CH_SRC = ./checker.c ./getnextline/get_next_line.c
+CH_SRC = checker.c cercular_linked_list_utils.c checker_utils.c push_swap_utils.c visualizer.c instructions.c getnextline/get_next_line.c
 
-PS_SRC = ./push_swap.c ./getnextline/get_next_line.c 
+PS_SRC = push_swap.c cercular_linked_list_utils.c checker_utils.c push_swap_utils.c visualizer.c instructions.c getnextline/get_next_line.c 
 
 all : $(PS_NAME)
 
 $(PS_NAME):$(PS_SRC)
-	make -C ./libft
-	gcc $(PS_SRC) ./libft/libft.a -o $(PS_NAME)
+	make -C libft
+	gcc $(PS_SRC) libft/libft.a -o $(PS_NAME)
 
 bonus: $(CH_SRC)
 	make -C libft
-	gcc $(CH_SRC) ./libft/libft.a  -o $(CH_NAME) 
+	gcc $(CH_SRC) libft/libft.a  -o $(CH_NAME) 
 
 clean:
 	rm -rf checker.dSYM

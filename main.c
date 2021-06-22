@@ -1,5 +1,22 @@
 #include "push_swap.h"
 
+int stack_size(t_stack *head)
+{
+	t_stack *curr;
+
+	int size = 0;
+	if (head == NULL)
+		return 0;
+	curr = head;
+	while (curr->next != head)
+	{
+		size++;
+		curr = curr->next;
+	}
+	size++;
+	return size;
+}
+
 int add_back(t_stack **head, int val)
 {
     t_stack *new;
@@ -45,9 +62,14 @@ int pop(t_stack **head)
 
 	if (*head == NULL)
 		return (0);
+	if (stack_size(*head) == 1)
+	{
+		*head = NULL;
+		return (0);
+	}
 	last = (*head)->prev;
 	*head = (*head)->next;
-	(*head)->next->prev = (*head)->prev;
+	(*head)->prev = last;
 	last->next = *head;
 	return (0);
 }
@@ -109,52 +131,20 @@ void pb(t_stack **a, t_stack **b)
 {
 	push_top(b, a);
 }
-void initialize(t_stack **a, t_stack **b)
-{
-	(*a)->next = NULL;
-	(*a)->prev = NULL;
-	(*b)->next = NULL;
-	(*b)->prev = NULL;
-}
-
-int stack_size(t_stack *head)
-{
-	t_stack *curr;
-
-	int size = 0;
-	if (head == NULL)
-		return 0;
-	else if (head->next == head)
-		return (1);
-	curr = head;
-	while (curr->next && curr->next != head)
-	{
-		size++;
-		curr = curr->next;
-	}
-	if (curr != head)
-		size++;
-	return size;
-}
 
 int rotate(t_stack **head)
 {
 	if (*head == NULL)
 		return 0;
-	add_back(head, (*head)->val);
-	pop(head);
+	(*head) = (*head)->next;
 	return 0;
 }
 
 int reverse_rotate(t_stack **head)
 {
-	int last;
-
 	if (*head == NULL)
 		return (0);
-	last = (*head)->prev->val;
-	pop_last(head);
-	push(head, last);
+	(*head) = (*head)->prev;
 	return 0;
 }
 
@@ -219,7 +209,6 @@ int main(int argc, char **argv)
 	number_of_args = 0;
 	head_a = NULL;
 	head_b = NULL;
-	// initialize(&head_a, &head_b);
 	args = NULL;
 	if (argc == 2)
 	{
@@ -234,9 +223,7 @@ int main(int argc, char **argv)
 	i = -1;
 	while (++i < number_of_args)
 		push(&head_a, atoi(args[i]));
-	pb(&head_a, &head_b);
-	pb(&head_a, &head_b);
-	// pb(&head_a, &head_b);
+	swap(head_a);
 	visualize(head_a, head_b);
 	return (1);
 }

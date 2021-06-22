@@ -14,5 +14,21 @@ typedef struct	s_stack
     struct s_stack *next;
 }				t_stack;
 
+int stack_size(t_stack *head);
+int add_back(t_stack **head, int val);
+int push(t_stack **head, int val);
+int pop(t_stack **head);
+int pop_last(t_stack **head);
+void push_top(t_stack **to, t_stack **from);
+void swap(t_stack *head);
+void ss(t_stack *head_a, t_stack *head_b);
+void pa(t_stack **a, t_stack **b);
+void pb(t_stack **a, t_stack **b);
+int rotate(t_stack **head);
+int reverse_rotate(t_stack **head);
+void rrr(t_stack **a, t_stack **b);
+void rr(t_stack **head_a, t_stack **head_b);
+void visualize(t_stack *a, t_stack *b);
+int args_length(char **args);
 
 #endif

@@ -94,8 +94,12 @@ int	main(int argc, char **argv)
 			}
 		push(&head_a, atoi(args[i]));
 	}
+	visualize(head_a, head_b);
 	while (get_next_line(0, &line) > 0)
+	{	
 		handle_input(&head_a, &head_b, line);
+		visualize(head_a, head_b);
+	}
 	printf("%s",checker(head_a));
 	return (1);
 }

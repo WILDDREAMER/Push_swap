@@ -43,8 +43,25 @@ int	sort_two(t_stack	*head)
 	min = get_index_of_min(head);
 	if (min != 0)
 	{
-		write(1, "sa\n", 3);
+		swap(head);
+			write(1, "sa\n", 3);
 		exit(EXIT_SUCCESS);
+	}
+	return (1);
+}
+
+int	unsort_two(t_stack	*head)
+{
+	int min;
+	int max;
+	if (stack_size(head) != 2)
+		return (0);
+	min = get_index_of_min(head);
+	if (min == 0)
+	{
+		swap(head);
+			write(1, "sb\n", 3);
+		return(1);
 	}
 	return (1);
 }
@@ -59,34 +76,73 @@ int	sort_three(t_stack	*head)
 	if (stack_size(head) != 3)
 		return (0);
 	if ((min == 0) && (max == 2))
-		exit(EXIT_SUCCESS);
+		return(1);
 	else if ((min == 2) && (max == 0))
 	{
 		write(1, "ra\n", 3);
 		write(1, "sa\n", 3);
-		exit(EXIT_SUCCESS);
+		return(1);
 	}
 	else if ((min == 2) && (max == 1))
 	{
 		write(1, "rra\n", 4);
-		exit(EXIT_SUCCESS);
+		return(1);
 	}
 	else if ((min == 1) && (max == 0))
 	{
 		write(1, "ra\n", 3);
-		exit(EXIT_SUCCESS);
+		return(1);
 	}
 	else if ((min == 0) && (max == 1))
 	{
 		write(1, "rra\n", 4);
 		write(1, "sa\n", 3);
-		exit(EXIT_SUCCESS);
+		return(1);
 	}
 	else if ((min == 1) && (max == 2))
 	{
 		write(1, "sa\n", 3);
-		exit(EXIT_SUCCESS);
+		return(1);
 	}
+	return(0);
+}
+
+int	sort_five(t_stack	**a, t_stack **b)
+{
+	int min;
+	int sec_min;
+	int i;
+	int j;
+
+	i = 2;
+	sec_min = get_val_of_second(*a);
+	while (--i >= 0)
+	{
+		min = get_index_of_min(*a);
+		if (min <= 2)
+		{
+			while (--min >= 0)
+			{
+				if (sec_min == (*a)->val)
+				{
+					write(1, "pb\n", 3);
+					pb(a, b);
+					--min;
+					--i;
+				}
+				write(1, "ra\n", 3);
+				rotate(a);
+			}
+			write(1, "pb\n", 3);
+			pb(a, b);
+			unsort_two(*b);
+			sort_three(*a);
+			write(1, "pa\npa\n", 6);
+			pa(a, b);
+			pa(a, b);
+		}
+	}
+	return(0);
 }
 
 int main(int argc, char **argv)
@@ -118,8 +174,6 @@ int main(int argc, char **argv)
 	check_duplicated_elements(args, number_of_args);
 	while (--i >= 0)
 		push(&head_a, atoi(args[i]));
-
-	sort_two(head_a);
-	sort_three(head_a);
+	sort_five(&head_a, &head_b);
 	return (1);
 }

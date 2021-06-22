@@ -46,5 +46,8 @@ int	check_duplicated_elements(char **args, int number_of_args);
 int	handle_input(t_stack **a, t_stack **b, char *line);
 int get_index_of_max(t_stack *head);
 int get_index_of_min(t_stack *head);
+int get_index_of_node(t_stack *head, int val);
+int get_val_of_min(t_stack *head);
+int get_val_of_second(t_stack *head);
 
 #endif

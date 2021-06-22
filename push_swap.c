@@ -34,13 +34,30 @@ int handle_input(t_stack **a, t_stack **b, char *line)
 	return (1);
 }
 
-void	sort_three(t_stack	*head)
+int	sort_two(t_stack	*head)
+{
+	int min;
+	int max;
+	if (stack_size(head) != 2)
+		return (0);
+	min = get_index_of_min(head);
+	if (min != 0)
+	{
+		write(1, "sa\n", 3);
+		exit(EXIT_SUCCESS);
+	}
+	return (1);
+}
+
+int	sort_three(t_stack	*head)
 {
 	int min;
 	int max;
 
 	min = get_index_of_min(head);
 	max = get_index_of_max(head);
+	if (stack_size(head) != 3)
+		return (0);
 	if ((min == 0) && (max == 2))
 		exit(EXIT_SUCCESS);
 	else if ((min == 2) && (max == 0))
@@ -70,7 +87,6 @@ void	sort_three(t_stack	*head)
 		write(1, "sa\n", 3);
 		exit(EXIT_SUCCESS);
 	}
-	
 }
 
 int main(int argc, char **argv)
@@ -103,6 +119,7 @@ int main(int argc, char **argv)
 	while (--i >= 0)
 		push(&head_a, atoi(args[i]));
 
+	sort_two(head_a);
 	sort_three(head_a);
 	return (1);
 }

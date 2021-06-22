@@ -96,7 +96,7 @@ void swap(t_stack *head)
 	int tmp;
 
 	//only if there is more than one element
-	if (head->next != NULL)
+	if (head != NULL)
 	{
 		tmp = head->val;
 		head->val = head->next->val;
@@ -171,16 +171,20 @@ void visualize(t_stack *a, t_stack *b)
 
 	curr_a = a;
 	curr_b = b;
+	printf("%s", YEL);
 	printf(" ----- STACK_A -----   ||   ----- STACK_B -----\n");
+	write(1, WHT, ft_strlen(WHT));
 	for (int i = 0; i < size; i++)
 	{
-		printf("||        %-10s|| ~ ||        %-10s||\n", (size_a > i) ? ft_itoa(curr_a->val) : " ", (size_b > i) ? ft_itoa(curr_b->val) : " ");
+		printf("%s||        %-10s|| ~ ||        %-10s||\n", BLU, (size_a > i) ? ft_itoa(curr_a->val) : " ", (size_b > i) ? ft_itoa(curr_b->val) : " ");
 		if (a && curr_a->next != NULL)
 			curr_a = curr_a->next;
 		if (b && curr_b->next != NULL)
 			curr_b = curr_b->next;
 	}
+	printf("%s", YEL);
 	printf("-----------------------------------------------\n");
+	write(1, WHT, ft_strlen(WHT));
 }
 
 int args_length(char **args)
@@ -196,11 +200,63 @@ int args_length(char **args)
 	return (i);
 }
 
+int handle_input(t_stack **a, t_stack **b, char *line)
+{
+	if (!ft_strcmp(line, "sa"))
+		swap(*a);
+	else if (!ft_strcmp(line, "sb"))
+		swap(*b);
+	else if (!ft_strcmp(line, "ss"))
+		ss(*a, *b);
+	else if (!ft_strcmp(line, "pa"))
+		pa(a, b);
+	else if (!ft_strcmp(line, "pb"))
+		pb(a, b);
+	else if (!ft_strcmp(line, "ra"))
+		rotate(a);
+	else if (!ft_strcmp(line, "rb"))
+		rotate(b);
+	else if (!ft_strcmp(line, "rr"))
+		rr(a, b);
+	else if (!ft_strcmp(line, "rra"))
+		reverse_rotate(a);
+	else if (!ft_strcmp(line, "rrb"))
+		reverse_rotate(b);
+	else if (!ft_strcmp(line, "rrr"))
+		rrr(a, b);
+	else
+	{
+		write(1, RED, ft_strlen(RED));
+		write(1, "SYNTAX ERROR\n", 13);
+		write(1, WHT, ft_strlen(WHT));
+		return (0);
+	}
+	return (1);
+}
+
+char *checker(t_stack *a)
+{
+	t_stack *curr_node;
+	int		curr_val;
+
+	curr_val = a->val;
+	curr_node = a->next;
+	while(curr_node != a)
+	{
+		if (curr_val > curr_node->val)
+			return ("\e[1;31mKO\n");
+		curr_val = curr_node->val;
+		curr_node = curr_node->next;
+	}
+	return ("\e[1;32mOK\n");
+}
+
 int main(int argc, char **argv)
 {
 	t_stack *head_a;
 	t_stack *head_b;
 	char **args;
+	char *line;
 	int number_of_args;
 	int i;
 
@@ -220,10 +276,15 @@ int main(int argc, char **argv)
 		number_of_args = argc - 1;
 		args = argv + 1;
 	}
-	i = -1;
-	while (++i < number_of_args)
+	i = number_of_args;
+	while (--i >= 0)
 		push(&head_a, atoi(args[i]));
-	swap(head_a);
-	visualize(head_a, head_b);
+	while (get_next_line(0, &line) > 0)
+	{	
+		if (!handle_input(&head_a, &head_b, line))
+			return (0);
+		visualize(head_a, head_b);
+	}
+	printf("%s",checker(head_a));
 	return (1);
 }

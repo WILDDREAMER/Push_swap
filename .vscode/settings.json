@@ -2,5 +2,8 @@
     "files.associations": {
         "string.h": "c",
         "push_swap.h": "c"
-    }
+    },
+    "cSpell.words": [
+        "libft"
+    ]
 }

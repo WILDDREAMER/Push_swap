@@ -107,29 +107,40 @@ int	sort_three(t_stack	*head)
 	return(0);
 }
 
+int check_second_last(t_stack **a, t_stack **b, int *stop)
+{
+	int sec_min;
+
+	sec_min = get_val_of_second(*a);
+	if (*stop)
+		return(0);
+	if (sec_min == (*a)->prev->val)
+	{
+		write(1, "rra\n", 4);
+		reverse_rotate(a);
+		write(1, "pb\n", 3);
+		pb(a, b);
+		*stop = 1;
+		return (1);
+	}
+	return (0);
+}
+
 int	sort_five(t_stack	**a, t_stack **b)
 {
 	int min_index;
 	int min_val;
-	int sec_min;
 	int stop_checking_for_second;
 	int i;
 	int j;
+	int sec_min;
 
+	sec_min = get_val_of_second(*a);
 	i = 0;
 	stop_checking_for_second = 0;
-	sec_min = get_val_of_second(*a);
 	while (++i <= 2)
 	{
-		if (sec_min == (*a)->prev->val && !stop_checking_for_second)
-		{
-			write(1, "rra\n", 4);
-			reverse_rotate(a);
-			write(1, "pb\n", 3);
-			pb(a, b);
-			++i;
-			stop_checking_for_second = 1;
-		}
+		i += check_second_last(a, b, &stop_checking_for_second);
 		min_index = get_index_of_min(*a);
 		min_val = get_val_of_min(*a);
 		if (min_index <= 2)
@@ -149,6 +160,23 @@ int	sort_five(t_stack	**a, t_stack **b)
 					write(1, "ra\n", 3);
 					rotate(a);
 				}
+			}
+			write(1, "pb\n", 3);
+			pb(a, b);
+		}
+		else
+		{
+			while (++min_index <= 5)
+			{
+				if (i == 2)
+					++min_index;
+				if (check_second_last(a, b, &stop_checking_for_second))
+				{
+					++i;
+					++min_index;
+				}
+				write(1, "rra\n", 4);
+				reverse_rotate(a);
 			}
 			write(1, "pb\n", 3);
 			pb(a, b);

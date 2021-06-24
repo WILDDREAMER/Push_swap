@@ -54,11 +54,16 @@ int get_val_of_second(t_stack *head);
 
 #endif
 
-//ARG="2 5 1 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="2 1 5 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="5 2 1 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="5 1 2 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="1 5 2 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="1 2 5 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="3 5 1 4 2"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
-//ARG="3 5 1 2 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="2 5 1 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="2 1 5 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="5 2 1 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="5 1 2 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="1 5 2 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="1 2 5 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 1 4 2"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 1 2 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 4 1 2"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 4 2 1"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 2 4 1"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 2 5 4 1"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="2 3 5 4 1"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG

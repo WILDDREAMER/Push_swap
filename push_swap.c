@@ -135,6 +135,12 @@ int	sort_five(t_stack	**a, t_stack **b)
 	int j;
 	int sec_min;
 
+	if((*a)->val == get_val_of_max(*a) && (*a)->next->val == get_val_of_second_max(*a))
+	{
+		swap(*a);
+		write(1, "sa\n", 3);
+	}
+
 	sec_min = get_val_of_second(*a);
 	i = 0;
 	stop_checking_for_second = 0;
@@ -143,7 +149,7 @@ int	sort_five(t_stack	**a, t_stack **b)
 		i += check_second_last(a, b, &stop_checking_for_second);
 		min_index = get_index_of_min(*a);
 		min_val = get_val_of_min(*a);
-		if (min_index <= 2)
+		if ((stack_size(*a) - min_index) >= 3)
 		{
 			while (--min_index >= 0)
 			{
@@ -163,6 +169,7 @@ int	sort_five(t_stack	**a, t_stack **b)
 			}
 			write(1, "pb\n", 3);
 			pb(a, b);
+			stop_checking_for_second = 1;
 		}
 		else
 		{
@@ -180,6 +187,7 @@ int	sort_five(t_stack	**a, t_stack **b)
 			}
 			write(1, "pb\n", 3);
 			pb(a, b);
+			stop_checking_for_second = 1;
 		}
 	}
 	unsort_two(*b);
@@ -189,7 +197,22 @@ int	sort_five(t_stack	**a, t_stack **b)
 	pa(a, b);
 	return(0);
 }
+char	*checker(t_stack *a)
+{
+	t_stack	*curr_node;
+	int		curr_val;
 
+	curr_val = a->val;
+	curr_node = a->next;
+	while(curr_node != a)
+	{
+		if (curr_val > curr_node->val)
+			return ("\e[1;31mKO\n");
+		curr_val = curr_node->val;
+		curr_node = curr_node->next;
+	}
+	return ("\e[1;32mOK\n");
+}
 int main(int argc, char **argv)
 {
 	t_stack *head_a;
@@ -219,6 +242,8 @@ int main(int argc, char **argv)
 	check_duplicated_elements(args, number_of_args);
 	while (--i >= 0)
 		push(&head_a, atoi(args[i]));
+	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
+		return(0);
 	sort_five(&head_a, &head_b);
 	return (1);
 }

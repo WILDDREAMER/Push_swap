@@ -43,7 +43,6 @@ void rr(t_stack **head_a, t_stack **head_b);
 void visualize(t_stack *a, t_stack *b);
 int args_length(char **args);
 void visualize(t_stack *a, t_stack *b);
-char *checker(t_stack *a);
 int	check_duplicated_elements(char **args, int number_of_args);
 int	handle_input(t_stack **a, t_stack **b, char *line);
 int get_index_of_max(t_stack *head);
@@ -51,7 +50,8 @@ int get_index_of_min(t_stack *head);
 int get_index_of_node(t_stack *head, int val);
 int get_val_of_min(t_stack *head);
 int get_val_of_second(t_stack *head);
-
+int get_val_of_max(t_stack *head);
+int get_val_of_second_max(t_stack *head);
 #endif
 
 //ARG="2 5 1 3 4"; ./push_swap $ARG | wc -l; ./push_swap $ARG | ./42_checker/checker_Mac $ARG

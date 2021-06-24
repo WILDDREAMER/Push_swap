@@ -158,6 +158,22 @@ int get_val_of_min(t_stack *head)
 	}
 	return (val_of_min);
 }
+int get_val_of_max(t_stack *head)
+{
+	t_stack	*curr_node;
+	int	val_of_max;
+
+	curr_node = head;
+	val_of_max = head->val;
+	curr_node = curr_node->next;
+	while (curr_node != head)
+	{
+		if (curr_node->val > val_of_max)
+			val_of_max = curr_node->val;
+		curr_node = curr_node->next;
+	}
+	return (val_of_max);
+}
 
 int get_val_of_second(t_stack *head)
 {
@@ -172,6 +188,24 @@ int get_val_of_second(t_stack *head)
 	while (curr_node != head)
 	{
 		if ((curr_node->val > min_val && curr_node->val < sec_val ) || (sec_val == min_val))
+			sec_val = curr_node->val;
+		curr_node = curr_node->next;
+	}
+	return (sec_val);
+}
+int get_val_of_second_max(t_stack *head)
+{
+	t_stack *curr_node;
+	int max_val;
+	int sec_val;
+
+	max_val = get_val_of_max(head);
+	curr_node = head;
+	sec_val = curr_node->val;
+	curr_node = curr_node->next;
+	while (curr_node != head)
+	{
+		if ((curr_node->val < max_val && curr_node->val > sec_val ) || (sec_val == max_val))
 			sec_val = curr_node->val;
 		curr_node = curr_node->next;
 	}

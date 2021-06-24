@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "./includes/push_swap.h"
 
 int	check_duplicated_elements(char **args, int number_of_args)
 {

@@ -1,4 +1,4 @@
-#include "push_swap.h"
+#include "./includes/push_swap.h"
 
 int handle_input(t_stack **a, t_stack **b, char *line)
 {
@@ -111,24 +111,27 @@ int	sort_five(t_stack	**a, t_stack **b)
 {
 	int min;
 	int sec_min;
+	int stop_checking_for_second;
 	int i;
 	int j;
 
-	i = 2;
+	i = 0;
+	stop_checking_for_second = 0;
 	sec_min = get_val_of_second(*a);
-	while (--i >= 0)
+	while (++i <= 2)
 	{
 		min = get_index_of_min(*a);
 		if (min <= 2)
 		{
 			while (--min >= 0)
 			{
-				if (sec_min == (*a)->val)
+				if (sec_min == (*a)->val && !stop_checking_for_second )
 				{
 					write(1, "pb\n", 3);
 					pb(a, b);
 					--min;
 					--i;
+					stop_checking_for_second = 1;
 				}
 				write(1, "ra\n", 3);
 				rotate(a);

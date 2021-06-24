@@ -10,12 +10,14 @@
 # define MAG "\e[1;35m"
 # define CYN "\e[1;36m"
 
+# define BUFFER_SIZE 100
+
 # include <stdio.h>
 # include <string.h>
 # include <stdlib.h>
 # include <stdbool.h>
-# include "./libft/libft.h"
-# include "./getnextline/get_next_line.h"
+# include "../libft/libft.h"
+# include "../getnextline/get_next_line.h"
 
 typedef struct	s_stack
 {
@@ -51,3 +53,12 @@ int get_val_of_min(t_stack *head);
 int get_val_of_second(t_stack *head);
 
 #endif
+
+//ARG="2 5 1 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="2 1 5 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="5 2 1 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="5 1 2 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="1 5 2 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="1 2 5 3 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 1 4 2"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG
+//ARG="3 5 1 2 4"; ./push_swap $ARG; ./push_swap $ARG | ./42_checker/checker_Mac $ARG

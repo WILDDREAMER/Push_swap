@@ -109,7 +109,8 @@ int	sort_three(t_stack	*head)
 
 int	sort_five(t_stack	**a, t_stack **b)
 {
-	int min;
+	int min_index;
+	int min_val;
 	int sec_min;
 	int stop_checking_for_second;
 	int i;
@@ -120,31 +121,44 @@ int	sort_five(t_stack	**a, t_stack **b)
 	sec_min = get_val_of_second(*a);
 	while (++i <= 2)
 	{
-		min = get_index_of_min(*a);
-		if (min <= 2)
+		if (sec_min == (*a)->prev->val && !stop_checking_for_second)
 		{
-			while (--min >= 0)
+			write(1, "rra\n", 4);
+			reverse_rotate(a);
+			write(1, "pb\n", 3);
+			pb(a, b);
+			++i;
+			stop_checking_for_second = 1;
+		}
+		min_index = get_index_of_min(*a);
+		min_val = get_val_of_min(*a);
+		if (min_index <= 2)
+		{
+			while (--min_index >= 0)
 			{
 				if (sec_min == (*a)->val && !stop_checking_for_second )
 				{
 					write(1, "pb\n", 3);
 					pb(a, b);
-					--min;
-					--i;
+					--min_index;
+					++i;
 					stop_checking_for_second = 1;
 				}
-				write(1, "ra\n", 3);
-				rotate(a);
+				if (min_val != (*a)->val)
+				{
+					write(1, "ra\n", 3);
+					rotate(a);
+				}
 			}
 			write(1, "pb\n", 3);
 			pb(a, b);
-			unsort_two(*b);
-			sort_three(*a);
-			write(1, "pa\npa\n", 6);
-			pa(a, b);
-			pa(a, b);
 		}
 	}
+	unsort_two(*b);
+	sort_three(*a);
+	write(1, "pa\npa\n", 6);
+	pa(a, b);
+	pa(a, b);
 	return(0);
 }
 

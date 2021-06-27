@@ -34,7 +34,27 @@ int handle_input(t_stack **a, t_stack **b, char *line)
 	return (1);
 }
 
-int	sort_two(t_stack	*head)
+int	add_node(char *val, t_instructions **instrcs)
+{
+	t_instructions *new;
+	t_instructions *curr;
+
+	curr = (*instrcs);
+	new = malloc(sizeof(t_instructions));
+	new->val = val;
+	new->next = NULL;
+	if ((*instrcs) == NULL)
+	{
+		(*instrcs) = new;
+		return (0);
+	}
+	while (curr->next != NULL)
+		curr = curr->next;
+	curr->next = new;
+	return (1);
+}
+
+int	sort_two(t_stack	*head, t_instructions **instrcs)
 {
 	int min;
 	int max;
@@ -44,13 +64,13 @@ int	sort_two(t_stack	*head)
 	if (min != 0)
 	{
 		swap(head);
-			write(1, "sa\n", 3);
+		add_node("sa", instrcs);
 		exit(EXIT_SUCCESS);
 	}
 	return (1);
 }
 
-int	unsort_two(t_stack	*head)
+int	unsort_two(t_stack	*head, t_instructions **instcs)
 {
 	int min;
 	int max;
@@ -60,13 +80,13 @@ int	unsort_two(t_stack	*head)
 	if (min == 0)
 	{
 		swap(head);
-			write(1, "sb\n", 3);
+			add_node("sb", instcs);
 		return(1);
 	}
 	return (1);
 }
 
-int	sort_three(t_stack	*head)
+int	sort_three(t_stack	*head, t_instructions **instrcs)
 {
 	int min;
 	int max;
@@ -79,29 +99,29 @@ int	sort_three(t_stack	*head)
 		return(1);
 	else if ((min == 2) && (max == 0))
 	{
-		write(1, "ra\n", 3);
-		write(1, "sa\n", 3);
+		add_node("ra", instrcs);
+		add_node("sa", instrcs);
 		return(1);
 	}
 	else if ((min == 2) && (max == 1))
 	{
-		write(1, "rra\n", 4);
+		add_node("rra", instrcs);
 		return(1);
 	}
 	else if ((min == 1) && (max == 0))
 	{
-		write(1, "ra\n", 3);
+		add_node("ra", instrcs);
 		return(1);
 	}
 	else if ((min == 0) && (max == 1))
 	{
-		write(1, "rra\n", 4);
-		write(1, "sa\n", 3);
+		add_node("rra", instrcs);
+		add_node("sa", instrcs);
 		return(1);
 	}
 	else if ((min == 1) && (max == 2))
 	{
-		write(1, "sa\n", 3);
+		add_node("sa", instrcs);
 		return(1);
 	}
 	return(0);
@@ -126,7 +146,7 @@ int check_second_last(t_stack **a, t_stack **b, int *stop)
 	return (0);
 }
 
-int	sort_five(t_stack	**a, t_stack **b)
+int	sort_five(t_stack	**a, t_stack **b, t_instructions **instrcs)
 {
 	int min_index;
 	int min_val;
@@ -135,11 +155,11 @@ int	sort_five(t_stack	**a, t_stack **b)
 	int j;
 	int sec_min;
 
-	if((*a)->val == get_val_of_max(*a) && (*a)->next->val == get_val_of_second_max(*a))
-	{
-		swap(*a);
-		write(1, "sa\n", 3);
-	}
+	// if((*a)->val == get_val_of_max(*a) && (*a)->next->val == get_val_of_second_max(*a))
+	// {
+	// 	swap(*a);
+	// 	add_node("sa", instrcs);
+	// }
 
 	sec_min = get_val_of_second(*a);
 	i = 0;
@@ -155,7 +175,7 @@ int	sort_five(t_stack	**a, t_stack **b)
 			{
 				if (sec_min == (*a)->val && !stop_checking_for_second )
 				{
-					write(1, "pb\n", 3);
+					add_node("pb", instrcs);
 					pb(a, b);
 					--min_index;
 					++i;
@@ -163,11 +183,11 @@ int	sort_five(t_stack	**a, t_stack **b)
 				}
 				if (min_val != (*a)->val)
 				{
-					write(1, "ra\n", 3);
+					add_node("ra", instrcs);
 					rotate(a);
 				}
 			}
-			write(1, "pb\n", 3);
+			add_node("pb", instrcs);
 			pb(a, b);
 			stop_checking_for_second = 1;
 		}
@@ -182,17 +202,18 @@ int	sort_five(t_stack	**a, t_stack **b)
 					++i;
 					++min_index;
 				}
-				write(1, "rra\n", 4);
+				add_node("rra", instrcs);
 				reverse_rotate(a);
 			}
-			write(1, "pb\n", 3);
+			add_node("pb", instrcs);
 			pb(a, b);
 			stop_checking_for_second = 1;
 		}
 	}
-	unsort_two(*b);
-	sort_three(*a);
-	write(1, "pa\npa\n", 6);
+	unsort_two(*b, instrcs);
+	sort_three(*a, instrcs);
+	add_node("pa", instrcs);
+	add_node("pa", instrcs);
 	pa(a, b);
 	pa(a, b);
 	return(0);
@@ -213,10 +234,43 @@ char	*checker(t_stack *a)
 	}
 	return ("\e[1;32mOK\n");
 }
+int optimize_instrucs(t_instructions **head)
+{
+	t_instructions *curr;
+
+	curr = *head;
+	while (curr)
+	{
+		if(curr->next
+			&& ((!ft_strcmp(curr->val, "ra") && !ft_strcmp(curr->next->val, "rb")) || 
+			(!ft_strcmp(curr->next->val, "ra") && !ft_strcmp(curr->val, "rb"))))
+		{
+			write(1, "rr\n", 3);
+			curr = curr->next->next;
+		}
+		else if(curr->next
+			&& ((!ft_strcmp(curr->val, "rra") && !ft_strcmp(curr->next->val, "rrb")) || 
+			(!ft_strcmp(curr->next->val, "rra") && !ft_strcmp(curr->val, "rrb"))) )
+		{
+			write(1, "rrr\n", 3);
+			curr = curr->next->next;
+		}
+		else{
+			write(1, curr->val, ft_strlen(curr->val));
+			write(1, "\n", 1);
+			curr = curr->next;
+		}
+	}
+	return 1;
+}
+
 int main(int argc, char **argv)
 {
 	t_stack *head_a;
 	t_stack *head_b;
+	t_instructions *instrcs;
+
+	instrcs = NULL;
 	char **args;
 	char *line;
 	int number_of_args;
@@ -244,6 +298,8 @@ int main(int argc, char **argv)
 		push(&head_a, atoi(args[i]));
 	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
 		return(0);
-	sort_five(&head_a, &head_b);
+	sort_five(&head_a, &head_b, &instrcs);
+	optimize_instrucs(&instrcs);
+	
 	return (1);
 }

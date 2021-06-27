@@ -33,7 +33,7 @@ int	handle_input(t_stack **a, t_stack **b, char *line)
 	return (1);
 }
 
-char	*checker(t_stack *a)
+int checker(t_stack *a)
 {
 	t_stack	*curr_node;
 	int		curr_val;
@@ -43,11 +43,15 @@ char	*checker(t_stack *a)
 	while(curr_node != a)
 	{
 		if (curr_val > curr_node->val)
-			return ("\e[1;31mKO\n");
+		{
+			printf("\e[1;31mKO\n");
+			return 0;
+		}
 		curr_val = curr_node->val;
 		curr_node = curr_node->next;
 	}
-	return ("\e[1;32mOK\n");
+	printf("\e[1;32mOK\n");
+	return 1;
 }
 
 int	main(int argc, char **argv)
@@ -100,6 +104,6 @@ int	main(int argc, char **argv)
 		handle_input(&head_a, &head_b, line);
 		// visualize(head_a, head_b);
 	}
-	printf("%s",checker(head_a));
+	checker(head_a);
 	return (1);
 }

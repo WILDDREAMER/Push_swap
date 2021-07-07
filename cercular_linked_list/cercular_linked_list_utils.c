@@ -241,20 +241,41 @@ int delete_node(t_stack **head, int val)
 	return (0);
 }
 
+t_stack *create_cpy(t_stack *head)
+{
+	int size;
+	int i;
+	t_stack *cpy;
+	t_stack *curr;
+
+	cpy = NULL;
+	size = stack_size(head);
+	curr = head;
+	i = -1;
+	while (++i < size)
+	{
+		push(&cpy, curr->val);
+		curr = curr->next;
+	}
+	return cpy;
+}
+
 int get_val_of_mid(t_stack *head)
 {
 	int *sorted;
+	t_stack *cpy;
 	int size;
 	int min;
 	int i;
 
 	size = stack_size(head);
 	sorted = malloc(size * sizeof(int));
+	cpy = create_cpy(head);
 	i = -1;
 	while (++i < size)
 	{
-		sorted[i] = get_val_of_min(head);
-		delete_node(&head, sorted[i]);
+		sorted[i] = get_val_of_min(cpy);
+		delete_node(&cpy, sorted[i]);
 	}
 	return (sorted[size / 2]);
 }

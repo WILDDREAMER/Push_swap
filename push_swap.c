@@ -115,9 +115,9 @@ int main(int argc, char **argv)
 		push(&head_a, atoi(args[i]));
 	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
 		return(0);
-	sort_three(head_a, &instrcs);
-	sort_five(&head_a, &head_b, &instrcs);
+	// sort_three(head_a, &instrcs);
+	// sort_five(&head_a, &head_b, &instrcs);
 	sort_big_numbers(&head_a, &head_b, &instrcs);
-	// optimize_instrucs(&instrcs);
+	optimize_instrucs(&instrcs);
 	return (1);
 }

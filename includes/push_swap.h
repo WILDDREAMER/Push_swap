@@ -57,4 +57,12 @@ int get_val_of_min(t_stack *head);
 int get_val_of_second(t_stack *head);
 int get_val_of_max(t_stack *head);
 int get_val_of_second_max(t_stack *head);
+int get_val_of_mid(t_stack *head);
+int	sort_five(t_stack	**a, t_stack **b, t_instructions **instrcs);
+int	sort_three(t_stack	*head, t_instructions **instrcs);
+int check_second_last(t_stack **a, t_stack **b, int *stop);
+int	add_node(char *val, t_instructions **instrcs);
+int	unsort_two(t_stack	*head, t_instructions **instcs);
+int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs);
+
 #endif

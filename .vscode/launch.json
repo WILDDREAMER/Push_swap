@@ -4,18 +4,13 @@
     // For more information, visit: https://go.microsoft.com/fwlink/?linkid=830387
     "version": "0.2.0",
     "configurations": [
-    
         {
-            "name": "(lldb) Launch",
-            "type": "cppdbg",
+            "type": "lldb",
             "request": "launch",
-            "program": "${workspaceFolder}/push_swap",
-            "args": ["1 4 3 5 9 7 8 0 -5 11 43 -2"],
-            "stopAtEntry": false,
-            "cwd": "${workspaceFolder}",
-            "environment": [],
-            "externalConsole": false,
-            "MIMode": "lldb"
+            "name": "Launch",
+            "program": "/home/wilddreamer/Desktop/push_swap/push_swap",
+            "args": ["1 0 15 3 44 5 80 -3 74 -100"],
+            "cwd": "${workspaceFolder}"
         },
     ]
 }

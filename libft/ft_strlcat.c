@@ -3,9 +3,7 @@
 size_t	ft_strlcat(char *dst, const char *src, size_t size)
 {
 	size_t	s_src;
-	size_t	k;
 
-	k = 0;
 	s_src = ft_strlen(src);
 	if (!dst && size == 0)
 		return (s_src);

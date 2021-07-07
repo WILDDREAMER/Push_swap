@@ -244,13 +244,11 @@ int delete_node(t_stack **head, int val)
 int get_val_of_mid(t_stack *head)
 {
 	int *sorted;
-	t_stack *curr;
 	int size;
 	int min;
 	int i;
 
 	size = stack_size(head);
-	curr = head;
 	sorted = malloc(size * sizeof(int));
 	i = -1;
 	while (++i < size)

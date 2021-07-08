@@ -118,7 +118,6 @@ int main(int argc, char **argv)
 	{
 		args = ft_split(argv[1], ' ');
 		number_of_args = args_length(args);
-		free_double_pointer(args);
 	}
 	else
 	{
@@ -131,14 +130,14 @@ int main(int argc, char **argv)
 		push(&head_a, ft_atoi(args[i]));
 	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
 		return(0);
-	// sort_three(head_a, &instrcs);
-	sort_five(&head_a, &head_b, &instrcs);
+	sort_three(head_a, &instrcs);
+	// sort_five(&head_a, &head_b, &instrcs);
 	// sort_big_numbers(&head_a, &head_b, &instrcs);
+	free_double_pointer(args);
 	optimize_instrucs(&instrcs);
-	// visualize(head_a, head_b);
 	free_t_instrcs(instrcs);
 	free_t_stack(head_a);
 	// free_t_stack(head_b);
-	
+
 	return (1);
 }

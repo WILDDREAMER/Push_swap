@@ -31,6 +31,16 @@ typedef struct	s_instructions
 	struct s_instructions *next;
 }				t_instructions;
 
+typedef struct s_five
+{
+	int min_index;
+	int min_val;
+	int stop_checking_for_second;
+	int i;
+	int j;
+	int sec_min;
+}				t_five;
+
 int stack_size(t_stack *head);
 int add_back(t_stack **head, int val);
 int push(t_stack **head, int val);

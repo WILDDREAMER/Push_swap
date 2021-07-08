@@ -6,20 +6,21 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 16:49:48 by ozakkare          #+#    #+#             */
-/*   Updated: 2019/11/18 21:19:43 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/08 18:29:03 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
 #include "get_next_line.h"
 
-char		*fill(char *holder, char **line)
+char	*fill(char *holder, char **line)
 {
-	char *str;
+	char	*str;
 
 	str = NULL;
 	if (holder)
 	{
-		if ((str = ft_strchr(holder, '\n')))
+		str = ft_strchr(holder, '\n');
+		if (str)
 		{
 			*str = '\0';
 			*line = ft_strdup(holder);
@@ -36,19 +37,19 @@ char		*fill(char *holder, char **line)
 	return (str);
 }
 
-void		swap_(char *buff, char **line)
+void	swap_(char *buff, char **line)
 {
-	char *tmp;
+	char	*tmp;
 
 	tmp = *line;
 	*line = ft_strjoin(tmp, buff);
 	free(tmp);
 }
 
-int			ifempty(char **holder, char *buff, int fd, char **line)
+int	ifempty(char **holder, char *buff, int fd, char **line)
 {
-	int			size_read;
-	char		*str;
+	int		size_read;
+	char	*str;
 
 	str = fill(*holder, line);
 	while (!str)
@@ -72,9 +73,9 @@ int			ifempty(char **holder, char *buff, int fd, char **line)
 	return (1);
 }
 
-int			get_next_line(int fd, char **line)
+int	get_next_line(int fd, char **line)
 {
-	static char *holder;
+	static char	*holder;
 	char		*buff;
 
 	if ((read(fd, NULL, 0) != 0) || fd < 0)

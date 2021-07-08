@@ -47,13 +47,17 @@ int pop(t_stack **head)
 		return (0);
 	if (stack_size(*head) == 1)
 	{
+		free(*head);
 		*head = NULL;
 		return (0);
 	}
+	t_stack *to_free;
+	to_free = *head;
 	last = (*head)->prev;
 	*head = (*head)->next;
 	(*head)->prev = last;
 	last->next = *head;
+	free(to_free);
 	return (0);
 }
 
@@ -221,9 +225,7 @@ int delete_node(t_stack **head, int val)
 	curr = *head;
 	if (curr->val == val)
 	{
-		curr->prev->next = curr->next;
-		curr->next->prev = curr->prev;
-		(*head) = (*head)->next;
+		curr->val = INT32_MAX;
 		return (1);
 	}
 	else
@@ -232,8 +234,7 @@ int delete_node(t_stack **head, int val)
 	{
 		if (curr->val == val)
 		{
-			curr->prev->next = curr->next;
-			curr->next->prev = curr->prev;
+			curr->val = INT32_MAX;
 			return (1);
 		}
 		curr = curr->next;
@@ -260,6 +261,37 @@ t_stack *create_cpy(t_stack *head)
 	return cpy;
 }
 
+void free_t_instrcs(t_instructions *stack)
+{
+	t_instructions *curr;
+	int size;
+	int i;
+
+	i = -1;
+	while (stack != NULL)
+	{
+		curr = stack;
+		stack = stack->next;
+		free(curr);
+	}
+}
+void free_t_stack(t_stack *stack)
+{
+	t_stack *curr;
+	int size;
+	int i;
+
+	i = -1;
+	size = stack_size(stack);
+	while (++i < size)
+	{
+		curr = stack;
+		stack = stack->next;
+		free(curr);
+		curr = NULL;
+	}
+}
+
 int get_val_of_mid(t_stack *head)
 {
 	int *sorted;
@@ -277,7 +309,11 @@ int get_val_of_mid(t_stack *head)
 		sorted[i] = get_val_of_min(cpy);
 		delete_node(&cpy, sorted[i]);
 	}
-	return (sorted[size / 2]);
+	i = sorted[size / 2];
+	free_t_stack(cpy);
+	free(sorted);
+	sorted = NULL;
+	return (i);
 }
 
 int	add_node(char *val, t_instructions **instrcs)

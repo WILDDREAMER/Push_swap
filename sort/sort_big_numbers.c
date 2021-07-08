@@ -145,6 +145,7 @@ int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
             }
         pa(a, b);
         add_node("pa", instrcs);
+        free(n_moves);
     }
     size = stack_size(*a);
     int min_index = get_index_of_min(*a);

@@ -48,6 +48,7 @@ char	*checker(t_stack *a)
 		curr_val = curr_node->val;
 		curr_node = curr_node->next;
 	}
+	free_t_stack(a);
 	return ("\e[1;32mOK\n");
 }
 
@@ -81,6 +82,20 @@ int optimize_instrucs(t_instructions **head)
 	return 1;
 }
 
+int free_double_pointer(char **tab)
+{
+	int i;
+
+	i = 0;
+	while (tab[i] != NULL)
+	{
+		free(tab[i]);
+		tab[i] = NULL;
+		i++;
+	}
+	free(tab);
+}
+
 int main(int argc, char **argv)
 {
 	t_stack *head_a;
@@ -103,6 +118,7 @@ int main(int argc, char **argv)
 	{
 		args = ft_split(argv[1], ' ');
 		number_of_args = args_length(args);
+		free_double_pointer(args);
 	}
 	else
 	{
@@ -112,13 +128,17 @@ int main(int argc, char **argv)
 	i = number_of_args;
 	check_duplicated_elements(args, number_of_args);
 	while (--i >= 0)
-		push(&head_a, atoi(args[i]));
+		push(&head_a, ft_atoi(args[i]));
 	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
 		return(0);
 	// sort_three(head_a, &instrcs);
 	// sort_five(&head_a, &head_b, &instrcs);
 	sort_big_numbers(&head_a, &head_b, &instrcs);
 	optimize_instrucs(&instrcs);
-	while (1);
+	// visualize(head_a, head_b);
+	free_t_instrcs(instrcs);
+	free_t_stack(head_a);
+	// free_t_stack(head_b);
+	
 	return (1);
 }

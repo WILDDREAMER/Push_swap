@@ -64,5 +64,9 @@ int check_second_last(t_stack **a, t_stack **b, int *stop);
 int	add_node(char *val, t_instructions **instrcs);
 int	unsort_two(t_stack	*head, t_instructions **instcs);
 int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs);
+void free_t_stack(t_stack *stack);
+int free_double_pointer(char **tab);
+void free_t_instrcs(t_instructions *stack);
+int delete_node(t_stack **head, int val);
 
 #endif

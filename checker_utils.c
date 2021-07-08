@@ -1,14 +1,20 @@
 #include "./includes/push_swap.h"
 
-int	check_duplicated_elements(char **args, int number_of_args)
+int check_duplicated_elements(char **args, int number_of_args)
 {
-	int	i;
-	int	j;
+	int i;
+	int j;
 
 	i = -1;
 	while (++i < number_of_args)
 	{
 		j = i;
+		if (ft_atoi(args[i]) > INT32_MAX)
+		{
+			write(1, RED, ft_strlen(RED));
+			write(1, "MAX INT EXCEEDED !\n", 15);
+			exit(EXIT_FAILURE);
+		}
 		while (++j < number_of_args)
 			if (!ft_strcmp(args[j], args[i]))
 			{

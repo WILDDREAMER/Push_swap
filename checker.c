@@ -90,13 +90,15 @@ int	main(int argc, char **argv)
 		j = -1;
 		arg_len = ft_strlen(args[i]);
 		while (++j < arg_len)
+		{
 			if (!ft_isdigit(args[i][j]))
 			{
 				write(1, RED, ft_strlen(RED));
 				write(1, "SYNTAX ERROR !\n", 15);
 				exit(EXIT_FAILURE);
 			}
-		push(&head_a, atoi(args[i]));
+		}
+		push(&head_a, ft_atoi(args[i]));
 	}
 	// visualize(head_a, head_b);
 	while (get_next_line(0, &line) > 0)

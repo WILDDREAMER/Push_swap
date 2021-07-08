@@ -41,6 +41,22 @@ typedef struct s_five
 	int sec_min;
 }				t_five;
 
+typedef struct s_big_numbers
+{
+	int *n_moves;
+    int size;
+    int size_a;
+    int first_size;
+    int i;
+    int j;
+    int k;
+    int index_curr_move;
+    t_stack *cur;
+    int closest;
+	int min_index;
+	int min_val;
+}				t_big_numbers;
+
 int stack_size(t_stack *head);
 int add_back(t_stack **head, int val);
 int push(t_stack **head, int val);
@@ -79,5 +95,10 @@ void free_double_pointer(char **tab);
 void free_t_instrcs(t_instructions *stack);
 int delete_node(t_stack **head, int val);
 t_stack *create_cpy(t_stack *head);
+void calculate_instrcs(t_big_numbers *vars, t_stack **a, t_stack **b);
+int index_of_curr_move(int *tab, int size);
+void isolate_min_max(t_stack **a, t_stack **b, t_instructions **instrcs);
+void not_min_max(t_stack **a, t_stack **b, t_instructions **instrcs, int mid);
+int get_index_of_closest(t_stack *head, int val);
 
 #endif

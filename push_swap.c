@@ -130,10 +130,11 @@ int main(int argc, char **argv)
 		push(&head_a, ft_atoi(args[i]));
 	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
 		return(0);
-	sort_three(head_a, &instrcs);
+	// sort_three(head_a, &instrcs);
 	// sort_five(&head_a, &head_b, &instrcs);
-	// sort_big_numbers(&head_a, &head_b, &instrcs);
-	free_double_pointer(args);
+	sort_big_numbers(&head_a, &head_b, &instrcs);
+	if (argc == 2)
+		free_double_pointer(args);
 	optimize_instrucs(&instrcs);
 	free_t_instrcs(instrcs);
 	free_t_stack(head_a);

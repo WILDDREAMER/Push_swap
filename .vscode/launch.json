@@ -8,8 +8,8 @@
             "type": "lldb",
             "request": "launch",
             "name": "Launch",
-            "program": "/home/wilddreamer/Desktop/push_swap/push_swap",
-            "args": ["1 0 15 3 44 5 80 -3 74 -100"],
+            "program": "/Users/ozakkare/Desktop/push_swap/push_swap",
+            "args": ["1 0 15 3 44 6 80 -3 74 -100 32 5 90"],
             "cwd": "${workspaceFolder}"
         },
     ]

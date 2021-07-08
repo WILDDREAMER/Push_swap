@@ -85,6 +85,7 @@ int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
 {
     int *n_moves;
     int size;
+    int siz_a;
     int first_size;
     int i;
     int j;
@@ -105,6 +106,8 @@ int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
         while (++j < size)
         {
             closest = get_index_of_closest(*a, cur->val);
+            if (closest > (stack_size(*a) / 2))
+                closest = stack_size(*a) - closest;
             if (j < (size / 2))
                 n_moves[j] = j + closest;
             else
@@ -127,11 +130,19 @@ int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
             }
         k = -1;
         closest = get_index_of_closest(*a, (*b)->val);
-        while (++k < closest)
-        {
-            rotate(a);
-            add_node("ra", instrcs);
-        }
+        size = stack_size(*a);
+        if (closest < (size / 2))
+            while (++k < closest)
+            {
+                rotate(a);
+                add_node("ra", instrcs);
+            }
+        else
+            while (++k < (size - closest))
+            {
+                reverse_rotate(a);
+                add_node("rra", instrcs);
+            }
         pa(a, b);
         add_node("pa", instrcs);
     }

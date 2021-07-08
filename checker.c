@@ -104,6 +104,6 @@ int	main(int argc, char **argv)
 		handle_input(&head_a, &head_b, line);
 		// visualize(head_a, head_b);
 	}
-	checker(head_a);
+	checker(head_a);	
 	return (1);
 }

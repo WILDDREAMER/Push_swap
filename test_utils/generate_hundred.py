@@ -1,3 +1,4 @@
 import random
-lst = random.sample(range(0, 500), 500)
+n = 500
+lst = random.sample(range(0, n), n)
 print(" ".join(str(x) for x in lst))

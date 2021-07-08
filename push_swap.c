@@ -69,7 +69,7 @@ int optimize_instrucs(t_instructions **head)
 			&& ((!ft_strcmp(curr->val, "rra") && !ft_strcmp(curr->next->val, "rrb")) || 
 			(!ft_strcmp(curr->next->val, "rra") && !ft_strcmp(curr->val, "rrb"))) )
 		{
-			write(1, "rrr\n", 3);
+			write(1, "rrr\n", 4);
 			curr = curr->next->next;
 		}
 		else{
@@ -119,5 +119,6 @@ int main(int argc, char **argv)
 	// sort_five(&head_a, &head_b, &instrcs);
 	sort_big_numbers(&head_a, &head_b, &instrcs);
 	optimize_instrucs(&instrcs);
+	while (1);
 	return (1);
 }

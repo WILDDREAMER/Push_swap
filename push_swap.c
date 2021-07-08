@@ -1,20 +1,20 @@
+/* ************************************************************************** */
+/*                                                                            */
+/*                                                        :::      ::::::::   */
+/*   push_swap.c                                        :+:      :+:    :+:   */
+/*                                                    +:+ +:+         +:+     */
+/*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
+/*                                                +#+#+#+#+#+   +#+           */
+/*   Created: 2021/07/08 20:56:43 by ozakkare          #+#    #+#             */
+/*   Updated: 2021/07/08 21:11:25 by ozakkare         ###   ########.fr       */
+/*                                                                            */
+/* ************************************************************************** */
+
 #include "./includes/push_swap.h"
 
-int handle_input(t_stack **a, t_stack **b, char *line)
+void	handle_input_2(t_stack **a, t_stack **b, char *line)
 {
-	if (!ft_strcmp(line, "sa"))
-		swap(*a);
-	else if (!ft_strcmp(line, "sb"))
-		swap(*b);
-	else if (!ft_strcmp(line, "ss"))
-		ss(*a, *b);
-	else if (!ft_strcmp(line, "pa"))
-		pa(a, b);
-	else if (!ft_strcmp(line, "pb"))
-		pb(a, b);
-	else if (!ft_strcmp(line, "ra"))
-		rotate(a);
-	else if (!ft_strcmp(line, "rb"))
+	if (!ft_strcmp(line, "rb"))
 		rotate(b);
 	else if (!ft_strcmp(line, "rr"))
 		rr(a, b);
@@ -31,6 +31,24 @@ int handle_input(t_stack **a, t_stack **b, char *line)
 		write(1, WHT, ft_strlen(WHT));
 		exit(EXIT_FAILURE);
 	}
+}
+
+int	handle_input(t_stack **a, t_stack **b, char *line)
+{
+	if (!ft_strcmp(line, "sa"))
+		swap(*a);
+	else if (!ft_strcmp(line, "sb"))
+		swap(*b);
+	else if (!ft_strcmp(line, "ss"))
+		ss(*a, *b);
+	else if (!ft_strcmp(line, "pa"))
+		pa(a, b);
+	else if (!ft_strcmp(line, "pb"))
+		pb(a, b);
+	else if (!ft_strcmp(line, "ra"))
+		rotate(a);
+	else
+		handle_input_2(a, b, line);
 	return (1);
 }
 
@@ -41,7 +59,7 @@ char	*checker(t_stack *a)
 
 	curr_val = a->val;
 	curr_node = a->next;
-	while(curr_node != a)
+	while (curr_node != a)
 	{
 		if (curr_val > curr_node->val)
 			return ("\e[1;31mKO\n");
@@ -52,93 +70,51 @@ char	*checker(t_stack *a)
 	return ("\e[1;32mOK\n");
 }
 
-int optimize_instrucs(t_instructions **head)
+void	push_swap(t_main *vars, t_stack **a,
+	t_stack **b, t_instructions **instrcs)
 {
-	t_instructions *curr;
-
-	curr = *head;
-	while (curr)
-	{
-		if(curr->next
-			&& ((!ft_strcmp(curr->val, "ra") && !ft_strcmp(curr->next->val, "rb")) || 
-			(!ft_strcmp(curr->next->val, "ra") && !ft_strcmp(curr->val, "rb"))))
-		{
-			write(1, "rr\n", 3);
-			curr = curr->next->next;
-		}
-		else if(curr->next
-			&& ((!ft_strcmp(curr->val, "rra") && !ft_strcmp(curr->next->val, "rrb")) || 
-			(!ft_strcmp(curr->next->val, "rra") && !ft_strcmp(curr->val, "rrb"))) )
-		{
-			write(1, "rrr\n", 4);
-			curr = curr->next->next;
-		}
-		else{
-			write(1, curr->val, ft_strlen(curr->val));
-			write(1, "\n", 1);
-			curr = curr->next;
-		}
-	}
-	return 1;
+	vars->i = vars->number_of_args;
+	check_duplicated_elements(vars->args, vars->number_of_args);
+	while (--vars->i >= 0)
+		push(a, ft_atoi(vars->args[vars->i]));
+	if (!ft_strcmp(checker(*a), "\e[1;32mOK\n"))
+		exit(EXIT_SUCCESS);
+	sort_three(*a, instrcs);
+	sort_five(a, b, instrcs);
+	sort_big_numbers(a, b, instrcs);
+	if (vars->argc == 2)
+		free_double_pointer(vars->args);
+	optimize_instrucs(instrcs);
+	free_t_instrcs(*instrcs);
+	free_t_stack(*a);
+	free_t_stack(*b);
 }
 
-void free_double_pointer(char **tab)
+int	main(int argc, char **argv)
 {
-	int i;
+	t_stack			*head_a;
+	t_stack			*head_b;
+	t_instructions	*instrcs;
+	t_main			vars;
 
-	i = 0;
-	while (tab[i] != NULL)
-	{
-		free(tab[i]);
-		tab[i] = NULL;
-		i++;
-	}
-	free(tab);
-}
-
-int main(int argc, char **argv)
-{
-	t_stack *head_a;
-	t_stack *head_b;
-	t_instructions *instrcs;
-
+	vars.argc = argc;
 	instrcs = NULL;
-	char **args;
-	char *line;
-	int number_of_args;
-	int i;
-
 	if (argc < 2)
-		return 0;
-	number_of_args = 0;
+		return (0);
+	vars.number_of_args = 0;
 	head_a = NULL;
 	head_b = NULL;
-	args = NULL;
+	vars.args = NULL;
 	if (argc == 2)
 	{
-		args = ft_split(argv[1], ' ');
-		number_of_args = args_length(args);
+		vars.args = ft_split(argv[1], ' ');
+		vars.number_of_args = args_length(vars.args);
 	}
 	else
 	{
-		number_of_args = argc - 1;
-		args = argv + 1;
+		vars.number_of_args = argc - 1;
+		vars.args = argv + 1;
 	}
-	i = number_of_args;
-	check_duplicated_elements(args, number_of_args);
-	while (--i >= 0)
-		push(&head_a, ft_atoi(args[i]));
-	if (!ft_strcmp(checker(head_a), "\e[1;32mOK\n"))
-		return(0);
-	// sort_three(head_a, &instrcs);
-	// sort_five(&head_a, &head_b, &instrcs);
-	sort_big_numbers(&head_a, &head_b, &instrcs);
-	if (argc == 2)
-		free_double_pointer(args);
-	optimize_instrucs(&instrcs);
-	free_t_instrcs(instrcs);
-	free_t_stack(head_a);
-	// free_t_stack(head_b);
-
+	push_swap(&vars, &head_a, &head_b, &instrcs);
 	return (1);
 }

@@ -57,6 +57,15 @@ typedef struct s_big_numbers
 	int min_val;
 }				t_big_numbers;
 
+typedef struct s_main
+{
+	char **args;
+	char *line;
+	int number_of_args;
+	int i;
+	int	argc;
+}				t_main;
+
 int stack_size(t_stack *head);
 int add_back(t_stack **head, int val);
 int push(t_stack **head, int val);

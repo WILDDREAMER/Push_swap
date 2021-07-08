@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 21:10:37 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/08 21:11:45 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/08 21:22:20 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -64,4 +64,22 @@ void	free_double_pointer(char **tab)
 		i++;
 	}
 	free(tab);
+}
+
+char	*checker(t_stack *a)
+{
+	t_stack	*curr_node;
+	int		curr_val;
+
+	curr_val = a->val;
+	curr_node = a->next;
+	while (curr_node != a)
+	{
+		if (curr_val > curr_node->val)
+			return ("\e[1;31mKO\n");
+		curr_val = curr_node->val;
+		curr_node = curr_node->next;
+	}
+	free_t_stack(a);
+	return ("\e[1;32mOK\n");
 }

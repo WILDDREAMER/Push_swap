@@ -109,5 +109,7 @@ int index_of_curr_move(int *tab, int size);
 void isolate_min_max(t_stack **a, t_stack **b, t_instructions **instrcs);
 void not_min_max(t_stack **a, t_stack **b, t_instructions **instrcs, int mid);
 int get_index_of_closest(t_stack *head, int val);
-
+int	optimize_instrucs(t_instructions **head);
+char	*checker(t_stack *a);
+int	handle_input(t_stack **a, t_stack **b, char *line);
 #endif

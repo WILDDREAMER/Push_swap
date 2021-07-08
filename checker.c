@@ -1,59 +1,5 @@
 #include "./includes/push_swap.h"
 
-int	handle_input(t_stack **a, t_stack **b, char *line)
-{
-	if (!ft_strcmp(line, "sa"))
-		swap(*a);
-	else if (!ft_strcmp(line, "sb"))
-		swap(*b);
-	else if (!ft_strcmp(line, "ss"))
-		ss(*a, *b);
-	else if (!ft_strcmp(line, "pa"))
-		pa(a, b);
-	else if (!ft_strcmp(line, "pb"))
-		pb(a, b);
-	else if (!ft_strcmp(line, "ra"))
-		rotate(a);
-	else if (!ft_strcmp(line, "rb"))
-		rotate(b);
-	else if (!ft_strcmp(line, "rr"))
-		rr(a, b);
-	else if (!ft_strcmp(line, "rra"))
-		reverse_rotate(a);
-	else if (!ft_strcmp(line, "rrb"))
-		reverse_rotate(b);
-	else if (!ft_strcmp(line, "rrr"))
-		rrr(a, b);
-	else
-	{
-		write(1, RED, ft_strlen(RED));
-		write(1, "SYNTAX ERROR !\n", 15);
-		exit(EXIT_FAILURE);
-	}
-	return (1);
-}
-
-int checker(t_stack *a)
-{
-	t_stack	*curr_node;
-	int		curr_val;
-
-	curr_val = a->val;
-	curr_node = a->next;
-	while(curr_node != a)
-	{
-		if (curr_val > curr_node->val)
-		{
-			printf("\e[1;31mKO\n");
-			return 0;
-		}
-		curr_val = curr_node->val;
-		curr_node = curr_node->next;
-	}
-	printf("\e[1;32mOK\n");
-	return 1;
-}
-
 int	main(int argc, char **argv)
 {
 	t_stack	*head_a;
@@ -106,6 +52,6 @@ int	main(int argc, char **argv)
 		handle_input(&head_a, &head_b, line);
 		// visualize(head_a, head_b);
 	}
-	checker(head_a);	
+	printf("%s",checker(head_a));	
 	return (1);
 }

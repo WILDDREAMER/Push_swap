@@ -82,7 +82,7 @@ int optimize_instrucs(t_instructions **head)
 	return 1;
 }
 
-int free_double_pointer(char **tab)
+void free_double_pointer(char **tab)
 {
 	int i;
 

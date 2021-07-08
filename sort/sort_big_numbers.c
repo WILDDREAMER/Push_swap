@@ -81,7 +81,7 @@ int index_of_curr_move(int *tab, int size)
     return (min_index);
 }
 
-int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
+void sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
 {
     int *n_moves;
     int size;

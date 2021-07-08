@@ -105,16 +105,26 @@ int sort_big_numbers(t_stack **a, t_stack **b, t_instructions **instrcs)
         while (++j < size)
         {
             closest = get_index_of_closest(*a, cur->val);
-            n_moves[j] = j + closest;
+            if (j < (size / 2))
+                n_moves[j] = j + closest;
+            else
+                n_moves[j] = (size - j) + closest;
             cur = cur->next;
         }
         k = -1;
         index_curr_move = index_of_curr_move(n_moves, size);
-        while (++k < index_curr_move)
-        {
-            rotate(b);
-            add_node("rb", instrcs);
-        }
+        if (index_curr_move < (size / 2))
+            while (++k < index_curr_move)
+            {
+                rotate(b);
+                add_node("rb", instrcs);
+            }
+        else
+            while (++k < (size - index_curr_move))
+            {
+                reverse_rotate(b);
+                add_node("rrb", instrcs);
+            }
         k = -1;
         closest = get_index_of_closest(*a, (*b)->val);
         while (++k < closest)

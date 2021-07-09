@@ -24,11 +24,11 @@ all : $(PS_NAME)
 
 $(PS_NAME):$(PS_SRC)
 	make -C libft
-	gcc $(PS_SRC) -g libft/libft.a  -o push_swap
+	gcc $(PS_SRC) libft/libft.a  -o push_swap
 
 bonus: $(CH_SRC)
 	make -C libft
-	gcc $(CH_SRC) -g libft/libft.a  -o checker
+	gcc $(CH_SRC) libft/libft.a  -o checker
 
 clean:
 	rm -rf checker.dSYM

@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 18:43:41 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/09 12:07:59 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:11:55 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -63,8 +63,7 @@ char	*ft_strjoin(char const *s1, char const *s2)
 		lens1++;
 	while (s2[lens2])
 		lens2++;
-	if (!(p = malloc((lens1 + lens2 + 1) * sizeof(char))))
-		return (0);
+	p = malloc((lens1 + lens2 + 1) * sizeof(char));
 	i = -1;
 	while (++i < lens1)
 		p[i] = s1[i];
@@ -80,17 +79,17 @@ char	*ft_strchr(const char *s, int c)
 	while (*s)
 	{
 		if (*s == (unsigned char)c)
-			return ((char*)s);
+			return ((char *)s);
 		s++;
 	}
 	if (*s == (unsigned char)c)
-		return ((char*)s);
+		return ((char *)s);
 	return (0);
 }
 
 char	*ft_strcpy(char *dest, const char *src)
 {
-	unsigned i;
+	unsigned int	i;
 
 	i = -1;
 	while (src[++i])

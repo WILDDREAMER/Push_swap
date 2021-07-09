@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:49:43 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/08 18:49:44 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:26:42 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -70,8 +70,6 @@ int	sort_five(t_stack **a, t_stack **b, t_instructions **instrcs)
 {
 	t_five	vars;
 
-	if (stack_size(*a) != 5)
-		return (0);
 	if ((*a)->val == get_val_of_max(*a)
 		&& (*a)->next->val == get_val_of_second_max(*a))
 	{

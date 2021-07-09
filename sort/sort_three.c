@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 18:49:35 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/08 19:02:24 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:26:27 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,6 @@ int	sort_three(t_stack	*head, t_instructions **instrcs)
 	int	min;
 	int	max;
 
-	if (stack_size(head) != 3)
-		return (0);
 	min = get_index_of_min(head);
 	max = get_index_of_max(head);
 	if ((min == 0) && (max == 2))

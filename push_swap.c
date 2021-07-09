@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 20:56:43 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/09 11:37:31 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:28:45 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -21,9 +21,14 @@ void	push_swap(t_main *vars, t_stack **a,
 		push(a, ft_atoi(vars->args[vars->i]));
 	if (!ft_strcmp(checker(*a), "\e[1;32mOK\n"))
 		exit(EXIT_SUCCESS);
-	sort_three(*a, instrcs);
-	sort_five(a, b, instrcs);
-	sort_big_numbers(a, b, instrcs);
+	if (vars->number_of_args == 2)
+		sort_two(*a, instrcs);
+	else if (vars->number_of_args == 3)
+		sort_three(*a, instrcs);
+	else if (vars->number_of_args == 5)
+		sort_five(a, b, instrcs);
+	else
+		sort_big_numbers(a, b, instrcs);
 	if (vars->argc == 2)
 		free_double_pointer(vars->args);
 	optimize_instrucs(instrcs);

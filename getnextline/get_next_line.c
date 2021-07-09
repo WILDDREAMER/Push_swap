@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 16:49:48 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/09 11:47:03 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:17:55 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -46,6 +46,13 @@ void	swap_(char *buff, char **line)
 	free(tmp);
 }
 
+void	free_buff(char **buff, char **holder)
+{
+	free(*buff);
+	free(holder);
+	*holder = 0;
+}
+
 int	ifempty(char **holder, char *buff, int fd, char **line)
 {
 	int		size_read;
@@ -54,14 +61,15 @@ int	ifempty(char **holder, char *buff, int fd, char **line)
 	str = fill(*holder, line);
 	while (!str)
 	{
-		if ((size_read = read(fd, buff, BUFFER_SIZE)) == 0)
+		size_read = read(fd, buff, BUFFER_SIZE);
+		if (size_read == 0)
 		{
-			free(buff);
-			free(*holder);
-			return (((*holder = 0) == 0) ? 0 : 0);
+			free_buff(&buff, holder);
+			return (0);
 		}
 		*(buff + size_read) = '\0';
-		if ((str = ft_strchr(buff, '\n')))
+		str = ft_strchr(buff, '\n');
+		if (str)
 		{
 			*str++ = '\0';
 			free(*holder);
@@ -82,7 +90,6 @@ int	get_next_line(int fd, char **line)
 		return (-1);
 	if (BUFFER_SIZE >= 2147483647)
 		return (-1);
-	if (!(buff = malloc(BUFFER_SIZE + 1)))
-		return (-1);
+	buff = malloc(BUFFER_SIZE + 1);
 	return (ifempty(&holder, buff, fd, line));
 }

@@ -113,6 +113,6 @@ int		get_index_of_closest(t_stack *head, int val);
 int		optimize_instrucs(t_instructions **head);
 char	*checker(t_stack *a);
 int		handle_input(t_stack **a, t_stack **b, char *line);
-void	check_args(intargc, t_main *vars, char **argv);
+void	check_args(int argc, t_main *vars, char **argv);
 int		sort_two(t_stack	*head, t_instructions **instrcs);
 #endif

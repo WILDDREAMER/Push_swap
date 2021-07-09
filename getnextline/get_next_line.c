@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/11/02 16:49:48 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/09 12:17:55 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 13:32:42 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -49,7 +49,7 @@ void	swap_(char *buff, char **line)
 void	free_buff(char **buff, char **holder)
 {
 	free(*buff);
-	free(holder);
+	free(*holder);
 	*holder = 0;
 }
 

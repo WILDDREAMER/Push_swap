@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 21:10:37 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/09 12:06:35 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 14:04:17 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -80,7 +80,6 @@ char	*checker(t_stack *a)
 		curr_val = curr_node->val;
 		curr_node = curr_node->next;
 	}
-	free_t_stack(a);
 	return ("\e[1;32mOK\n");
 }
 

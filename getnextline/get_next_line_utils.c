@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2019/10/25 18:43:41 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/08 18:26:35 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:07:59 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -38,8 +38,7 @@ void	*ft_calloc(size_t count, size_t size)
 	int				i;
 
 	i = 0;
-	if (!(c = malloc(count * size)))
-		return (0);
+	c = malloc(count * size);
 	while (c[i])
 	{
 		c[i] = '\0';

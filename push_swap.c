@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 20:56:43 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/08 21:25:31 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 11:37:31 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -47,16 +47,7 @@ int	main(int argc, char **argv)
 	head_a = NULL;
 	head_b = NULL;
 	vars.args = NULL;
-	if (argc == 2)
-	{
-		vars.args = ft_split(argv[1], ' ');
-		vars.number_of_args = args_length(vars.args);
-	}
-	else
-	{
-		vars.number_of_args = argc - 1;
-		vars.args = argv + 1;
-	}
+	check_args(argc, &vars, argv);
 	push_swap(&vars, &head_a, &head_b, &instrcs);
 	return (1);
 }

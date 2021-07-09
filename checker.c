@@ -1,57 +1,43 @@
 #include "./includes/push_swap.h"
 
+void	checker_main(t_main *vars, t_stack **a, t_stack **b)
+{
+	char	*print;
+
+	check_duplicated_elements(vars->args, vars->number_of_args);
+	while (--vars->i >= 0)
+		push(a, ft_atoi(vars->args[vars->i]));
+	while (get_next_line(0, &vars->line) > 0)
+	{
+		handle_input(a, b, vars->line);
+		free(vars->line);
+		vars->line = NULL;
+	}
+	print = checker(*a);
+	write(1, print, ft_strlen(print));
+	if (vars->argc == 2)
+		free_double_pointer(vars->args);
+	free_t_stack(*a);
+	free_t_stack(*b);
+}
+
 int	main(int argc, char **argv)
 {
 	t_stack	*head_a;
 	t_stack	*head_b;
-	char	**args;
-	char	*line;
-	int		number_of_args;
-	int		i;
-	int		j;
+	t_main	vars;
 	int		arg_len;
 
 	if (argc < 2)
-		return 0;
-	number_of_args = 0;
+		return (0);
+	vars.number_of_args = 0;
 	head_a = NULL;
 	head_b = NULL;
-	args = NULL;
-	if (argc == 2)
-	{
-		args = ft_split(argv[1], ' ');
-		number_of_args = args_length(args);
-	}
-	else
-	{
-		number_of_args = argc - 1;
-		args = argv + 1;
-	}
-	i = number_of_args;
-	if (number_of_args == 0)
+	vars.args = NULL;
+	check_args(argc, &vars, argv);
+	vars.i = vars.number_of_args;
+	if (vars.number_of_args == 0)
 		return (0);
-	check_duplicated_elements(args, number_of_args);
-	while (--i >= 0)
-	{
-		j = -1;
-		arg_len = ft_strlen(args[i]);
-		while (++j < arg_len)
-		{
-			if (!ft_isdigit(args[i][j]))
-			{
-				write(1, RED, ft_strlen(RED));
-				write(1, "SYNTAX ERROR !\n", 15);
-				exit(EXIT_FAILURE);
-			}
-		}
-		push(&head_a, ft_atoi(args[i]));
-	}
-	// visualize(head_a, head_b);
-	while (get_next_line(0, &line) > 0)
-	{	
-		handle_input(&head_a, &head_b, line);
-		// visualize(head_a, head_b);
-	}
-	printf("%s",checker(head_a));	
+	checker_main(&vars, &head_a, &head_b);
 	return (1);
 }

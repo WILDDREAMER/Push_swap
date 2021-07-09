@@ -6,7 +6,7 @@
 /*   By: ozakkare <ozakkare@student.42.fr>          +#+  +:+       +#+        */
 /*                                                +#+#+#+#+#+   +#+           */
 /*   Created: 2021/07/08 21:10:37 by ozakkare          #+#    #+#             */
-/*   Updated: 2021/07/08 21:22:20 by ozakkare         ###   ########.fr       */
+/*   Updated: 2021/07/09 12:06:35 by ozakkare         ###   ########.fr       */
 /*                                                                            */
 /* ************************************************************************** */
 
@@ -82,4 +82,18 @@ char	*checker(t_stack *a)
 	}
 	free_t_stack(a);
 	return ("\e[1;32mOK\n");
+}
+
+void	check_args(int argc, t_main *vars, char **argv)
+{
+	if (argc == 2)
+	{
+		vars->args = ft_split(argv[1], ' ');
+		vars->number_of_args = args_length(vars->args);
+	}
+	else
+	{
+		vars->number_of_args = argc - 1;
+		vars->args = argv + 1;
+	}
 }

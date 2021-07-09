@@ -30,8 +30,8 @@ int	ft_atoi(const char *str)
 		i++;
 	}
 	if (result > 2147483647 && negativity == 1)
-		return (-1);
+		return (-1); 
 	if (result > 2147483648 && negativity == -1)
-		return (0);
+		return (-1);
 	return (result * negativity);
 }

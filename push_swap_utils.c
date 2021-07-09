@@ -1,12 +1,13 @@
 #include "./includes/push_swap.h"
 
-int stack_size(t_stack *head)
+int	stack_size(t_stack *head)
 {
-	t_stack *curr;
+	t_stack	*curr;
+	int		size;
 
-	int size = 0;
+	size = 0;
 	if (head == NULL)
-		return 0;
+		return (0);
 	curr = head;
 	while (curr->next != head)
 	{
@@ -14,15 +15,15 @@ int stack_size(t_stack *head)
 		curr = curr->next;
 	}
 	size++;
-	return size;
+	return (size);
 }
 
-int args_length(char **args)
+int	args_length(char **args)
 {
-	int i;
+	int	i;
 
 	i = 0;
-	while(*args != NULL)
+	while (*args != NULL)
 	{
 		i++;
 		args++;
